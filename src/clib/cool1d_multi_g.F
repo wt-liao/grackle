@@ -39,7 +39,7 @@
      &                metPar1, metPar2, metPar3, metPar4, metPar5,
      &                metDataSize, metCooling, metHeating, clnew,
      &                iVheat, iMheat, Vheat, Mheat,
-     &                itmask)
+     &                itmask, H2_tau_x, H2_tau_y, H2_tau_z)
 
 !  SOLVE RADIATIVE COOLING/HEATING EQUATIONS
 !
@@ -81,7 +81,8 @@
      &        HM(in,jn,kn),  H2I(in,jn,kn), H2II(in,jn,kn),
      &        DI(in,jn,kn),  DII(in,jn,kn), HDI(in,jn,kn),
      &        metal(in,jn,kn), Vheat(in,jn,kn), Mheat(in,jn,kn),
-     &        photogamma(in,jn,kn)
+     &        photogamma(in,jn,kn), 
+     &        H2_tau_x(in,jn,kn), H2_tau_y(in,jn,kn), H2_tau_z(in,jn,kn)
       real*8  hyd01ka(nratec), h2k01a(nratec), vibha(nratec), 
      &        rotha(nratec), rotla(nratec), gpldla(nratec),
      &        gphdla(nratec), hdltea(nratec), hdlowa(nratec),
@@ -129,7 +130,9 @@
      &       gphdl1, dom_inv, tau, ciefudge,
      &       coolunit, dbase1, tbase1, xbase1,
      &       nH2, nother, myde, nSSh, nratio, nssh_he, nratio_he,
-     &       fSShHI, fSShHeI
+     &       fSShHI, fSShHeI,
+     &       H2_tau_xd, H2_tau_yd, H2_tau_zd,
+     &       beta_x, beta_y, beta_z
 
 !  Slice locals
  
@@ -485,6 +488,18 @@
             if (ih2optical.eq.1) then
                 fudge = (0.76_DKIND*d(i,j,k)*dom/
      &              8.e9_DKIND)**(-0.45_DKIND)
+                fudge = min(fudge, 1._DKIND)
+            else if (ih2optical.eq.2) then
+                H2_tau_xd = H2_tau_x(i,j,k)*H2I(i,j,k)*xbase1
+                H2_tau_yd = H2_tau_y(i,j,k)*H2I(i,j,k)*xbase1
+                H2_tau_zd = H2_tau_z(i,j,k)*H2I(i,j,k)*xbase1
+                beta_x = (1._DKIND-exp(-H2_tau_xd))/H2_tau_xd
+                beta_y = (1._DKIND-exp(-H2_tau_yd))/H2_tau_yd
+                beta_z = (1._DKIND-exp(-H2_tau_zd))/H2_tau_zd
+                beta_x = min(beta_x,1._DKIND)
+                beta_y = min(beta_y,1._DKIND)
+                beta_z = min(beta_z,1._DKIND)
+                fudge = (beta_x+beta_y+beta_z) / 3._DKIND
                 fudge = min(fudge, 1._DKIND)
             else
                 fudge = 1._DKIND

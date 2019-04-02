@@ -72,7 +72,8 @@
      &        HM(in,jn,kn),  H2I(in,jn,kn),  H2II(in,jn,kn),
      &        DI(in,jn,kn),  DII(in,jn,kn),  HDI(in,jn,kn),
      &        metal(in,jn,kn), Vheat(in,jn,kn), Mheat(in,jn,kn),
-     &        cooltime(in,jn,kn)
+     &        cooltime(in,jn,kn),
+     &        H2_tau_x(in,jn,kn), H2_tau_y(in,jn,kn), H2_tau_z(in,jn,kn)
       real*8  photogamma(in,jn,kn)
       real*8  hyd01ka(nratec), h2k01a(nratec), vibha(nratec), 
      &        rotha(nratec), rotla(nratec), gpldla(nratec),
@@ -269,7 +270,7 @@
      &                metPar1, metPar2, metPar3, metPar4, metPar5,
      &                metDataSize, metCooling, metHeating, clnew,
      &                iVheat, iMheat, Vheat, Mheat,
-     &                itmask)
+     &                itmask, H2_tau_x, H2_tau_y, H2_tau_z)
 
 !        Compute the cooling time on the slice
 !          (the gamma used here is the same as used to calculate the pressure

@@ -79,7 +79,8 @@ extern void FORTRAN_NAME(solve_rate_cool_g)(
         double *metPar4, double *metPar5,
  	long long *metDataSize, double *metCooling,
         double *metHeating, int *clnew,
-        int *iVheat, int *iMheat, gr_float *Vheat, gr_float *Mheat);
+        int *iVheat, int *iMheat, gr_float *Vheat, gr_float *Mheat,
+   gr_float *H2_Sobolev_tau_x, gr_float *H2_Sobolev_tau_y, gr_float *H2_Sobolev_tau_z);
 
 int _solve_chemistry(chemistry_data *my_chemistry,
                      chemistry_data_storage *my_rates,
@@ -96,7 +97,8 @@ int _solve_chemistry(chemistry_data *my_chemistry,
                      gr_float *volumetric_heating_rate, gr_float *specific_heating_rate,
                      gr_float *RT_heating_rate, gr_float *RT_HI_ionization_rate, gr_float *RT_HeI_ionization_rate,
                      gr_float *RT_HeII_ionization_rate, gr_float *RT_H2_dissociation_rate,
-                     gr_float *H2_self_shielding_length)
+                     gr_float *H2_self_shielding_length, 
+                     gr_float *H2_Sobolev_tau_x, gr_float *H2_Sobolev_tau_y, gr_float *H2_Sobolev_tau_z )
 {
 
   /* Return if this doesn't concern us. */
@@ -256,7 +258,8 @@ int _solve_chemistry(chemistry_data *my_chemistry,
     &my_rates->cloudy_data_new,
     &my_chemistry->use_volumetric_heating_rate,
     &my_chemistry->use_specific_heating_rate,
-    volumetric_heating_rate, specific_heating_rate);
+    volumetric_heating_rate, specific_heating_rate, 
+    H2_Sobolev_tau_x, H2_Sobolev_tau_y, H2_Sobolev_tau_z);
 
   return SUCCESS;
 
@@ -288,7 +291,8 @@ int local_solve_chemistry(chemistry_data *my_chemistry,
                        my_fields->RT_heating_rate, my_fields->RT_HI_ionization_rate,
                        my_fields->RT_HeI_ionization_rate, my_fields->RT_HeII_ionization_rate,
                        my_fields->RT_H2_dissociation_rate,
-                       my_fields->H2_self_shielding_length) == FAIL) {
+                       my_fields->H2_self_shielding_length, my_fields->H2_Sobolev_tau_x, 
+                       my_fields->H2_Sobolev_tau_y, my_fields->H2_Sobolev_tau_z ) == FAIL) {
     fprintf(stderr, "Error in _solve_chemistry.\n");
     return FAIL;
   }

@@ -67,6 +67,11 @@ typedef struct
   gr_float *RT_H2_dissociation_rate;
 
   gr_float *H2_self_shielding_length;
+  
+  // H2 Sobolev field
+  gr_float *H2_Sobolev_tau_x;
+  gr_float *H2_Sobolev_tau_y;
+  gr_float *H2_Sobolev_tau_z;
 
 } grackle_field_data;
 
