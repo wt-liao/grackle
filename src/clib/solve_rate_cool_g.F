@@ -604,7 +604,7 @@ c      chunit = (7.17775e-12_DKIND)/(2._DKIND*uvel*uvel*mh)   ! 4.5 eV per H2 fo
 !$omp end critical
 #endif
                 endif
-                if (heq.gt.0)
+                if (heq.gt.0) then
                   dtit(i) = min(dtit(i), 0.1_DKIND*heq/dheq)
                 endif
               endif
