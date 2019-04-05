@@ -173,7 +173,8 @@
       xbase1   = uxyz/(aye*uaye)    ! uxyz is [x]*a      = [x]*[a]*a'        '
       dbase1   = urho*(aye*uaye)**3 ! urho is [dens]/a^3 = [dens]/([a]*a')^3 '
       coolunit = (uaye**5 * xbase1**2 * mh**2) / (tbase1**3 * dbase1)
-      zr       = 1._DKIND/(aye*uaye) - 1._DKIND
+!      zr       = 1._DKIND/(aye*uaye) - 1._DKIND
+      zr       = 20._DKIND
       fudge    = 1._DKIND
       iradfield = -1
 
@@ -490,15 +491,18 @@
      &              8.e9_DKIND)**(-0.45_DKIND)
                 fudge = min(fudge, 1._DKIND)
             else if (ih2optical.eq.2) then
-                H2_tau_xd = H2_tau_x(i,j,k)*H2I(i,j,k)*xbase1
-                H2_tau_yd = H2_tau_y(i,j,k)*H2I(i,j,k)*xbase1
-                H2_tau_zd = H2_tau_z(i,j,k)*H2I(i,j,k)*xbase1
+                H2_tau_xd = H2_tau_x(i,j,k)*xbase1*(H2I(i,j,k)*0.5*dom)
+                H2_tau_yd = H2_tau_y(i,j,k)*xbase1*(H2I(i,j,k)*0.5*dom)
+                H2_tau_zd = H2_tau_z(i,j,k)*xbase1*(H2I(i,j,k)*0.5*dom)
                 beta_x = (1._DKIND-exp(-H2_tau_xd))/H2_tau_xd
                 beta_y = (1._DKIND-exp(-H2_tau_yd))/H2_tau_yd
                 beta_z = (1._DKIND-exp(-H2_tau_zd))/H2_tau_zd
                 beta_x = min(beta_x,1._DKIND)
                 beta_y = min(beta_y,1._DKIND)
                 beta_z = min(beta_z,1._DKIND)
+                beta_x = max(beta_x,0._DKIND)
+                beta_y = max(beta_y,0._DKIND)
+                beta_z = max(beta_z,0._DKIND)
                 fudge = (beta_x+beta_y+beta_z) / 3._DKIND
                 fudge = min(fudge, 1._DKIND)
             else
