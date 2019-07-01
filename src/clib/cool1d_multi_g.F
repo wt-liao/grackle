@@ -511,7 +511,7 @@
                 nH2 = 0.5_DKIND*H2I(i,j,k)
                 nother = (HeI(i,j,k) + HeII(i,j,k) + 
      &               HeIII(i,j,k))/4._DKIND +
-     &               sHI(i,j,k) + HII(i,j,k) + de(i,j,k)
+     &               HI(i,j,k) + HII(i,j,k) + de(i,j,k)
                 fH2    = nH2/(nH2 + nother)
                 H2_tau = H2_Disk_tau(i,j,k)*fH2*(uxyz*urho)
                 beta   = (1._DKIND-exp(-H2_tau))/H2_tau
