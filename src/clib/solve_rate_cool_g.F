@@ -168,8 +168,8 @@
      &        d(in,jn,kn),     e(in,jn,kn),
      &        u(in,jn,kn),    v(in,jn,kn),     w(in,jn,kn),
      &        metal(in,jn,kn), Vheat(in,jn,kn), Mheat(in,jn,kn),
-     &        H2_tau_x(in,jn,kn), H2_tau_y(in,jn,kn), H2_tau_z(in,jn,kn),
-     &        H2_Disk_tau(in,jn,kn)
+     &        H2_tau_x(in,jn,kn), H2_tau_y(in,jn,kn),
+     &        H2_tau_z(in,jn,kn), H2_Disk_tau(in,jn,kn)
 
 !  Radiative transfer fields
 

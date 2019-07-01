@@ -82,8 +82,8 @@
      &        DI(in,jn,kn),  DII(in,jn,kn), HDI(in,jn,kn),
      &        metal(in,jn,kn), Vheat(in,jn,kn), Mheat(in,jn,kn),
      &        photogamma(in,jn,kn), 
-     &        H2_tau_x(in,jn,kn), H2_tau_y(in,jn,kn), H2_tau_z(in,jn,kn),
-     &        H2_Disk_tau(in,jn,kn)
+     &        H2_tau_x(in,jn,kn), H2_tau_y(in,jn,kn),
+     &        H2_tau_z(in,jn,kn), H2_Disk_tau(in,jn,kn)
       real*8  hyd01ka(nratec), h2k01a(nratec), vibha(nratec), 
      &        rotha(nratec), rotla(nratec), gpldla(nratec),
      &        gphdla(nratec), hdltea(nratec), hdlowa(nratec),
