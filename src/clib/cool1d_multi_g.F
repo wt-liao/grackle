@@ -39,7 +39,7 @@
      &                metPar1, metPar2, metPar3, metPar4, metPar5,
      &                metDataSize, metCooling, metHeating, clnew,
      &                iVheat, iMheat, Vheat, Mheat,
-     &                itmask, H2_tau_x, H2_tau_y, H2_tau_z)
+     &                itmask, H2_tau_x, H2_tau_y, H2_tau_z, H2_Disk_tau)
 
 !  SOLVE RADIATIVE COOLING/HEATING EQUATIONS
 !
@@ -82,7 +82,8 @@
      &        DI(in,jn,kn),  DII(in,jn,kn), HDI(in,jn,kn),
      &        metal(in,jn,kn), Vheat(in,jn,kn), Mheat(in,jn,kn),
      &        photogamma(in,jn,kn), 
-     &        H2_tau_x(in,jn,kn), H2_tau_y(in,jn,kn), H2_tau_z(in,jn,kn)
+     &        H2_tau_x(in,jn,kn), H2_tau_y(in,jn,kn), H2_tau_z(in,jn,kn),
+     &        H2_Disk_tau(in,jn,kn)
       real*8  hyd01ka(nratec), h2k01a(nratec), vibha(nratec), 
      &        rotha(nratec), rotla(nratec), gpldla(nratec),
      &        gphdla(nratec), hdltea(nratec), hdlowa(nratec),
@@ -132,7 +133,8 @@
      &       nH2, nother, myde, nSSh, nratio, nssh_he, nratio_he,
      &       fSShHI, fSShHeI,
      &       H2_tau_xd, H2_tau_yd, H2_tau_zd,
-     &       beta_x, beta_y, beta_z
+     &       beta_x, beta_y, beta_z,
+     &       H2_tau, beta
 
 !  Slice locals
  
@@ -505,6 +507,15 @@
                 beta_z = max(beta_z,0._DKIND)
                 fudge = (beta_x+beta_y+beta_z) / 3._DKIND
                 fudge = min(fudge, 1._DKIND)
+            else if (ih2optical.eq.3) then 
+                nH2 = 0.5_DKIND*H2I(i,j,k)
+                nother = (HeI(i,j,k) + HeII(i,j,k) + 
+     &               HeIII(i,j,k))/4._DKIND +
+     &               sHI(i,j,k) + HII(i,j,k) + de(i,j,k)
+                fH2    = nH2/(nH2 + nother)
+                H2_tau = H2_Disk_tau(i,j,k)*fH2*(uxyz*uho)
+                beta   = (1._DKIND-exp(-H2_tau))/H2_tau
+                fudge  = min(beta, 1._DKIND)
             else
                 fudge = 1._DKIND
             endif

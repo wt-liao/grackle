@@ -58,7 +58,8 @@ int _solve_chemistry(chemistry_data *my_chemistry,
                      gr_float *RT_heating_rate, gr_float *RT_HI_ionization_rate, gr_float *RT_HeI_ionization_rate,
                      gr_float *RT_HeII_ionization_rate, gr_float *RT_H2_dissociation_rate,
                      gr_float *H2_self_shielding_length, 
-                     gr_float *H2_Sobolev_tau_x, gr_float *H2_Sobolev_tau_y, gr_float *H2_Sobolev_tau_z);
+                     gr_float *H2_Sobolev_tau_x, gr_float *H2_Sobolev_tau_y, gr_float *H2_Sobolev_tau_z, 
+                     gr_float *H2_Disk_tau );
 
 int calculate_cooling_time(code_units *my_units,
                            grackle_field_data *my_fields,

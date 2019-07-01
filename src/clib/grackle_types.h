@@ -72,6 +72,9 @@ typedef struct
   gr_float *H2_Sobolev_tau_x;
   gr_float *H2_Sobolev_tau_y;
   gr_float *H2_Sobolev_tau_z;
+  
+  // H2 Disk optical depth
+  gr_float *H2_Disk_tau;
 
 } grackle_field_data;
 
